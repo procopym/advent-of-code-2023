@@ -68,6 +68,7 @@ const games = input.split("\n");
 const possibleGames = [];
 const gamesPower = [];
 
+console.time("loop");
 for (let i = 0; i < games.length - 1; i++) {
   const [gameName, gameResults] = games[i].split(":");
   const id = +gameName.split(" ")[1];
@@ -116,6 +117,7 @@ for (let i = 0; i < games.length - 1; i++) {
     possibleGames.push(id);
   }
 }
+console.timeEnd("loop");
 
 console.log(gamesPower.reduce((prev, curr) => prev + curr, 0));
 
