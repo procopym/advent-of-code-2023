@@ -56,7 +56,7 @@ For each game, find the minimum set of cubes that must have been present. What i
 
 import fs from "node:fs";
 
-const input = fs.readFileSync("part-2-data.txt", "utf8");
+const input = fs.readFileSync("puzzle-input.txt", "utf8");
 
 const map = new Map([
   ["red", 12],

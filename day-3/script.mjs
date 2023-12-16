@@ -74,7 +74,7 @@ What is the sum of all of the gear ratios in your engine schematic?
 
 import fs from "node:fs";
 
-const input = fs.readFileSync("part-2-data.txt", "utf-8");
+const input = fs.readFileSync("puzzle-input.txt", "utf-8");
 
 const rows = input.split("\n");
 

@@ -60,13 +60,13 @@ const map = new Map([
   ["9", 9],
 ]);
 
-const data = fs.readFileSync("./part-2-data.txt", "utf8");
+const data = fs.readFileSync("puzzle-input.txt", "utf8");
 
 const list = data.split("\n");
 
 const results = [];
 console.time("loop");
-for (let i = 0; i < list.length - 1; i++) {
+for (let i = 0; i < list.length; i++) {
   const digits = [];
 
   map.forEach((value, key) => {
