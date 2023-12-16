@@ -132,7 +132,7 @@ for (let i = 0; i < matrix.length; i++) {
       k++
     ) {
       endIndex = k;
-      number = number * (k == startIndex ? 1 : 10) + +matrix[i][k];
+      number = number * 10 + +matrix[i][k];
     }
     j = endIndex;
 
