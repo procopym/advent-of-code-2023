@@ -132,10 +132,7 @@ import fs from "node:fs";
 import { spawn } from "node:child_process";
 
 const input = fs.readFileSync("puzzle-input.txt", "utf-8");
-const isMain = process.argv.length < 3;
-if (isMain) {
-  console.time("input");
-}
+console.time("input");
 const [seedsRow, ...processes] = input.split("\n\n");
 const [state, rawSeeds] = seedsRow.split("s: ");
 const seeds = rawSeeds
@@ -155,9 +152,7 @@ for (let i = 0; i < processes.length; i++) {
 
   transformations.set(fromState, { toState, properties });
 }
-if (isMain) {
-  console.timeEnd("input");
-}
+console.timeEnd("input");
 
 function calc(tmp, initialValue, store) {
   tmp.set(state, initialValue);
@@ -190,6 +185,7 @@ function calc(tmp, initialValue, store) {
   }
 }
 
+const isMain = process.argv.length < 3;
 if (isMain) {
   console.time("loop");
   const part1Lowest = { lowest: Infinity };
@@ -219,7 +215,9 @@ if (isMain) {
       })
     );
   }
+  console.time("loop");
   const location = await Promise.all(promises);
+  console.timeEnd("loop");
   console.log("Part 2:", Math.min(...location));
 } else {
   const offset = +process.argv[2] * 2;
