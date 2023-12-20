@@ -177,17 +177,17 @@ function gcd(a, b) {
 }
 
 if (assumed) {
-  const results = Array.from({ length: zreach.size });
-  for (let [key, value] of zreach) {
-    results[key] = value;
-  }
-
-  stepsPart2 = results[0];
-  for (let i = 1; i < results.length; i++) {
+  let first = true;
+  for (let [_, value] of zreach) {
+    if (first) {
+      stepsPart2 = value;
+      first = false;
+      continue;
+    }
     // find LCM of two numbers
     // LCM = ab/gcd(a,b)
     // gcd -  greatest common divisor - https://en.wikipedia.org/wiki/Euclidean_algorithm
-    stepsPart2 = (stepsPart2 * results[i]) / gcd(stepsPart2, results[i]);
+    stepsPart2 = (stepsPart2 * value) / gcd(stepsPart2, value);
   }
 }
 
