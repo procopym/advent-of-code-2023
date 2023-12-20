@@ -112,8 +112,6 @@ export function countCards(hand, map) {
 }
 export const map = new Map();
 function isFiveOfKind(hand, wildcard) {
-  countCards(hand, map);
-
   for (let [key, value] of map) {
     if (value + (key === wildcard ? 0 : map.get(wildcard) ?? 0) === 5) {
       return true;
@@ -124,8 +122,6 @@ function isFiveOfKind(hand, wildcard) {
 }
 
 function isFourOfKind(hand, wildcard) {
-  countCards(hand, map);
-
   for (let [key, value] of map) {
     if (value + (key === wildcard ? 0 : map.get(wildcard) ?? 0) === 4) {
       return true;
@@ -136,8 +132,6 @@ function isFourOfKind(hand, wildcard) {
 }
 
 function isFullHouse(hand, wildcard) {
-  countCards(hand, map);
-
   const count = map.get(wildcard) ?? 0;
   if (count >= 1) {
     let pairs = 0;
@@ -165,8 +159,6 @@ function isFullHouse(hand, wildcard) {
 }
 
 function isThreeOfKind(hand, wildcard) {
-  countCards(hand, map);
-
   for (let [key, value] of map) {
     if (key === wildcard) {
       continue;
@@ -181,8 +173,6 @@ function isThreeOfKind(hand, wildcard) {
 }
 
 function isTwoPairs(hand, wildcard) {
-  countCards(hand, map);
-
   if (typeof wildcard !== "undefined" && (map.get(wildcard) ?? 0) > 0) {
     return false;
   }
@@ -198,8 +188,6 @@ function isTwoPairs(hand, wildcard) {
 }
 
 function isOnePair(hand, wildcard) {
-  countCards(hand, map);
-
   for (let [key, value] of map) {
     if (key === wildcard) {
       continue;
@@ -214,6 +202,7 @@ function isOnePair(hand, wildcard) {
 }
 
 function is(hand, wildcard) {
+  countCards(hand, map);
   switch (true) {
     case isFiveOfKind(hand, wildcard):
       return "five-of-kind";
