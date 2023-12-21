@@ -89,7 +89,7 @@ for (let i = 0; i < data.length; i++) {
   const stackEnding = [data[i][data[i].length - 1]];
 
   let zeroCount = 0;
-  while (!(zeroCount === data[i].length)) {
+  while (zeroCount !== data[i].length) {
     zeroCount = 0;
     for (let j = 0; j < data[i].length - 1; j++) {
       data[i][j] = data[i][j + 1] - data[i][j];
