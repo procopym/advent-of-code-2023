@@ -177,7 +177,7 @@ const EXPANSION_PART1 = 2;
 const EXPANSION_PART2 = 1000000;
 galaxies = adjustCoordinates(galaxies, EXPANSION_PART2);
 const results = [];
-for (let i = 0; i < galaxies.length; i++) {
+for (let i = 0; i < galaxies.length - 1; i++) {
   console.time(`loop ${i}`);
   for (let j = i + 1; j < galaxies.length; j++) {
     let steps = 0;
