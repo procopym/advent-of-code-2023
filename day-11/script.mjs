@@ -1,5 +1,3 @@
-import { escape } from "querystring";
-
 /*
 --- Day 11: Cosmic Expansion ---
 You continue following signs for "Hot Springs" and eventually come across an observatory. The Elf within turns out to be a researcher studying cosmic expansion using the giant telescope here.
@@ -118,7 +116,6 @@ console.time("input");
 const universe = input.split("\n").map((x) => x.trim().split(""));
 console.timeEnd("input");
 
-console.time("part-1/2");
 const voidsX = [];
 const voidsY = [];
 for (let i = 0; i < universe.length; i++) {
@@ -150,67 +147,31 @@ for (let i = 0; i < universe.length; i++) {
   }
 }
 
-function adjustCoordinates(galaxies, expansion) {
-  for (let i = 0; i < galaxies.length; i++) {
-    let count = 0;
-    const galaxy = galaxies[i];
-    for (let voidX of voidsX) {
-      if (voidX < galaxy[0]) {
-        count++;
-      }
-    }
-    galaxy[0] = galaxy[0] - count + count * expansion;
+for (let part of [1, 2]) {
+  const expansion = part === 1 ? 2 - 1 : 10 ** 6 - 1;
+  let result = 0;
+  console.time(`part-${part}`);
+  for (let i = 0; i < galaxies.length - 1; i++) {
+    const [x, y] = galaxies[i];
+    for (let j = i + 1; j < galaxies.length; j++) {
+      const [x2, y2] = galaxies[j];
 
-    count = 0;
-    for (let voidY of voidsY) {
-      if (voidY < galaxy[1]) {
-        count++;
+      let dij = Math.abs(x2 - x) + Math.abs(y2 - y);
+
+      for (let voidX of voidsX) {
+        if (Math.min(x2, x) <= voidX && voidX <= Math.max(x2, x)) {
+          dij += expansion;
+        }
       }
+      for (let voidY of voidsY) {
+        if (Math.min(y2, y) <= voidY && voidY <= Math.max(y2, y)) {
+          dij += expansion;
+        }
+      }
+
+      result += dij;
     }
-    galaxy[1] = galaxy[1] - count + count * expansion;
   }
-
-  return galaxies;
+  console.timeEnd(`part-${part}`);
+  console.log(`Part ${part}`, result);
 }
-
-const EXPANSION_PART1 = 2;
-const EXPANSION_PART2 = 1000000;
-galaxies = adjustCoordinates(galaxies, EXPANSION_PART2);
-const results = [];
-for (let i = 0; i < galaxies.length - 1; i++) {
-  console.time(`loop ${i}`);
-  for (let j = i + 1; j < galaxies.length; j++) {
-    let steps = 0;
-    let [currentX, currentY] = galaxies[i];
-    let [destX, destY] = galaxies[j];
-    const stepX = currentX < destX ? 1 : -1;
-    const stepY = currentY < destY ? 1 : -1;
-    while (currentX !== destX && currentY !== destY) {
-      currentX = currentX + stepX;
-      currentY = currentY + stepY;
-      steps += 2;
-    }
-
-    if (currentX === destX) {
-      while (currentY !== destY) {
-        currentY = currentY + stepY;
-        steps++;
-      }
-    } else {
-      while (currentX !== destX) {
-        currentX = currentX + stepX;
-        steps++;
-      }
-    }
-
-    results.push(steps);
-  }
-
-  console.timeEnd(`loop ${i}`);
-}
-console.timeEnd("part-1/2");
-
-console.log(
-  "Part 1/2:",
-  results.reduce((prev, curr) => prev + curr, 0)
-);
