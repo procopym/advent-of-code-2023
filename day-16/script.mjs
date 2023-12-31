@@ -88,7 +88,6 @@ Using this configuration, 51 tiles are energized:
 Find the initial beam configuration that energizes the largest number of tiles; how many tiles are energized in that configuration?
 */
 import fs from "node:fs";
-import { fileURLToPath } from "node:url";
 
 const file = process.argv[2];
 const input = fs.readFileSync(file, "utf-8");
