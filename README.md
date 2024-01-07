@@ -14,3 +14,4 @@ cd day-1 && node script.mjs
 
 - [ ] day 1
 - [ ] day 5
+- [ ] day 17 (use proper minheap)
