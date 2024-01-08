@@ -88,54 +88,31 @@ const moves = {
   D: [1, 0],
   L: [0, -1],
 };
+const mapping = {
+  0: "R",
+  1: "D",
+  2: "L",
+  3: "U",
+};
 
-function pointsP1(plan) {
+function getPoints(plan, part) {
   const points = [[0, 0]];
   let x = 0;
   let y = 0;
   for (let i = 0; i < plan.length; i++) {
     const move = plan[i];
-    const [dx, dy] = moves[move[0]];
-
-    const count = +move[1];
-    x = x + dx * count;
-    y = y + dy * count;
-
-    points.push([x, y]);
-  }
-
-  return points;
-}
-
-function pointsP2(plan) {
-  const points = [[0, 0]];
-  let x = 0;
-  let y = 0;
-  for (let i = 0; i < plan.length; i++) {
-    const [, , hex] = plan[i];
-
     let count = 0;
-    for (let j = 2; j < hex.length - 2; j++) {
-      count += Math.floor(parseInt(hex[j], 16)) * 16 ** (hex.length - j - 3);
+    let dx = 0;
+    let dy = 0;
+    if (part == "1") {
+      const [direction, cnt] = move;
+      count = +cnt;
+      [dx, dy] = moves[direction];
+    } else {
+      const hex = move[2];
+      count = parseInt(hex.slice(2, hex.length - 2), 16);
+      [dx, dy] = moves[mapping[hex[hex.length - 2]]];
     }
-
-    let direction = undefined;
-    switch (hex[hex.length - 2]) {
-      case "0":
-        direction = "R";
-        break;
-      case "1":
-        direction = "D";
-        break;
-      case "2":
-        direction = "L";
-        break;
-      case "3":
-        direction = "U";
-        break;
-    }
-
-    const [dx, dy] = moves[direction];
     x = x + dx * count;
     y = y + dy * count;
 
@@ -181,7 +158,7 @@ function area(points, border) {
   return inner + border;
 }
 
-let points = pointsP1(plan);
-console.log("Part 1:", area(points, border(points)));
-points = pointsP2(plan);
-console.log("Part 2:", area(points, border(points)));
+for (const part of ["1", "2"]) {
+  const points = getPoints(plan, part);
+  console.log(`Part ${part}`, area(points, border(points)));
+}
