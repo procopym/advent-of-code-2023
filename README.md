@@ -10,6 +10,12 @@ The result is enough in this game... right?
 cd day-1 && node script.mjs
 ```
 
+or
+
+```bash
+cd day-16 && node script.mjs puzzle-input.in
+```
+
 ## To improve
 
 - [ ] day 1
